@@ -1,0 +1,104 @@
+mysql> /* 2 */
+mysql> select * from Employee Inner Join Dept on Employee.Dept_id=Dept.Dept_id where dname='CE' or dname='IT' or fname like 'p%' or fname like 'h%';
++--------+---------+----------+---------+-------------+--------+------------+---------+-------+-----------+
+| Emp_id | Dept_id | fname    | lname   | designation | salary | JoinDate   | Dept_id | dname | dlocation |
++--------+---------+----------+---------+-------------+--------+------------+---------+-------+-----------+
+|      2 |       1 | Patya    | Doke    | STAFF       | 123000 | 2020-07-25 |       1 | CE    | A1        |
+|      5 |       3 | Vinayak  | Jamadar | PROF        | 650000 | 2014-12-11 |       3 | IT    | A2        |
+|      6 |       1 | Ayush    | Gala    | PROF        | 103000 | 2020-01-31 |       1 | CE    | A1        |
+|      9 |       3 | Rohan    | Joshi   | ASS. PROF   |  50000 | 2021-06-11 |       3 | IT    | A2        |
+|     11 |       0 | Himanshu | Doshi   | PROF        |  78000 | 2019-12-22 |       0 | FE    | F1        |
++--------+---------+----------+---------+-------------+--------+------------+---------+-------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> /* 3 */
+mysql> select COUNT(DISTINCT designation) from Employee;
++-----------------------------+
+| COUNT(DISTINCT designation) |
++-----------------------------+
+|                           3 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> /* 4 */
+mysql> update Employee set salary=(salary*1.10) where JoinDate<'2015-01-01';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+mysql> /* 5 */
+mysql> delete from Dept where dlocation='Mumbai';
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> 
+mysql> /* 6 */
+mysql> select * from Project where Plocation='Pune';
++---------+---------+------------------+-----------+--------+------------+
+| Proj_id | Dept_id | Pname            | Plocation | Pcost  | Pyear      |
++---------+---------+------------------+-----------+--------+------------+
+|       1 |       0 | Cloud Accounting | Pune      | 100000 | 2022-06-21 |
+|       4 |       3 | Accounting       | Pune      | 102000 | 2012-02-21 |
+|       5 |       4 | Bitcoin          | Pune      | 102000 | 2005-02-21 |
+|       6 |       0 | B                | Pune      | 102000 | 2005-02-21 |
++---------+---------+------------------+-----------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /* 7 */
+mysql> select * from Project where Pcost between 100000 and 500000;
++---------+---------+------------------+-----------+--------+------------+
+| Proj_id | Dept_id | Pname            | Plocation | Pcost  | Pyear      |
++---------+---------+------------------+-----------+--------+------------+
+|       1 |       0 | Cloud Accounting | Pune      | 100000 | 2022-06-21 |
+|       3 |       1 | Cloud Blockchain | Nashik    | 100000 | 2022-06-21 |
+|       4 |       3 | Accounting       | Pune      | 102000 | 2012-02-21 |
+|       5 |       4 | Bitcoin          | Pune      | 102000 | 2005-02-21 |
+|       6 |       0 | B                | Pune      | 102000 | 2005-02-21 |
+|       5 |       3 | Base             | Mumbai    | 102000 | 2007-02-21 |
++---------+---------+------------------+-----------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> /* 8 */
+mysql> select *, avg(Pcost) as 'Average Cost' from Project where Pcost = (select max(Pcost) from Project);
++---------+---------+------------+-----------+--------+------------+--------------+
+| Proj_id | Dept_id | Pname      | Plocation | Pcost  | Pyear      | Average Cost |
++---------+---------+------------+-----------+--------+------------+--------------+
+|       4 |       3 | Accounting | Pune      | 102000 | 2012-02-21 |  102000.0000 |
++---------+---------+------------+-----------+--------+------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> /* 9 */
+mysql> select * from Employee order by Emp_id DESC, fname DESC;
++--------+---------+----------+-----------+-------------+---------+------------+
+| Emp_id | Dept_id | fname    | lname     | designation | salary  | JoinDate   |
++--------+---------+----------+-----------+-------------+---------+------------+
+|     11 |       0 | Himanshu | Doshi     | PROF        |   78000 | 2019-12-22 |
+|     10 |       0 | Rohit    | Doshi     | PROF        |   78000 | 2019-12-22 |
+|      9 |       3 | Rohan    | Joshi     | ASS. PROF   |   50000 | 2021-06-11 |
+|      8 |       2 | XYZ      | ABC       | PROF        | 1034000 | 2022-06-23 |
+|      7 |       2 | ABC      | XYZ       | ASS. PROF   | 1230000 | 2017-02-26 |
+|      6 |       1 | Ayush    | Gala      | PROF        |  103000 | 2020-01-31 |
+|      5 |       3 | Vinayak  | Jamadar   | PROF        |  715000 | 2014-12-11 |
+|      4 |       2 | Tanmya   | Karmarkar | STAFF       |  640000 | 2020-11-11 |
+|      3 |       0 | Rutya    | Ghatage   | PROF        | 1000000 | 2021-05-21 |
+|      2 |       1 | Patya    | Doke      | STAFF       |  123000 | 2020-07-25 |
+|      1 |       0 | Rohan    | Doshi     | PROF        |  100000 | 2022-06-21 |
++--------+---------+----------+-----------+-------------+---------+------------+
+11 rows in set (0.00 sec)
+
+mysql> 
+mysql> /* 10 */
+mysql> select Pname, Plocation, Pcost from Project where year(Pyear)=2007 or year(Pyear)=2005 or year(Pyear)=2004;
++---------+-----------+--------+
+| Pname   | Plocation | Pcost  |
++---------+-----------+--------+
+| Bitcoin | Pune      | 102000 |
+| B       | Pune      | 102000 |
+| Base    | Mumbai    | 102000 |
++---------+-----------+--------+
+3 rows in set (0.00 sec)
+
