@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
-import javax.swing.text.html.MinimalHTMLWriter;
 
 class Process {
 
@@ -58,10 +57,8 @@ class FCFS {
     // WT = TAT - BT
     // RT = WT
 
-    private Scanner sc;
-
     public void execute() {
-        sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Number of Processes:");
         int numProcess = sc.nextInt();
@@ -104,10 +101,8 @@ class FCFS {
 
 class SJF {
 
-    private Scanner sc;
-
     public void execute() {
-        sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Number of Processes:");
         int numProcess = sc.nextInt();
@@ -124,7 +119,7 @@ class SJF {
         int min = Integer.MAX_VALUE;
         int count = 0, shortest = 0;
         int time = 0;
-        int sum = 0;
+        int sum;
         double avgWT = 0, avgTAT = 0;
         boolean check = false;
         System.out.println("\n\nPRNo\tBT\tAT\tCT\tTAT\tWT");
@@ -171,10 +166,8 @@ class SJF {
 
 class PriorityNonPreemptive {
 
-    private Scanner sc;
-
     public void execute() {
-        sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Number of Processes:");
         int numProcess = sc.nextInt();
@@ -214,10 +207,8 @@ class PriorityNonPreemptive {
 
 class RoundRobin {
 
-    private Scanner sc;
-
     public void execute() {
-        sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Number of Processes:");
         int numProcess = sc.nextInt();
@@ -282,36 +273,29 @@ class Assignment1 {
 
         while (ch != -1) {
             System.out.println("CPU SCHEDULING ALGORITHMS");
-            System.out.println("\n1.FCFS\n2.SJF\n3.PriorityNonPreemptive\n4.Round Robin\nENTER: ");
+            System.out.println("\n 1.FCFS\n 2.SJF\n 3.PriorityNonPreemptive\n 4.Round Robin\n-1.Exit\nENTER: ");
             ch = sc.nextInt();
             try {
 
                 switch (ch) {
-                    case 1: {
+                    case 1 -> {
                         FCFS fcfs = new FCFS();
                         fcfs.execute();
-                        break;
                     }
-                    case 2: {
+                    case 2 -> {
                         SJF sjf = new SJF();
                         sjf.execute();
-                        break;
                     }
-                    case 3: {
+                    case 3 -> {
                         PriorityNonPreemptive pr = new PriorityNonPreemptive();
                         pr.execute();
-                        break;
                     }
-                    case 4: {
+                    case 4 -> {
                         RoundRobin rr = new RoundRobin();
                         rr.execute();
-                        break;
                     }
-                    case -1:
-                        sc.close();
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unexpected value: " + ch);
+                    case -1 -> sc.close();
+                    default -> throw new IllegalArgumentException("Unexpected value: " + ch);
                 }
             } catch (Exception e) {
                 System.out.println("Unexpected Value");
