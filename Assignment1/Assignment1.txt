@@ -1,0 +1,185 @@
+CPU SCHEDULING ALGORITHMS
+
+ 1.FCFS
+ 2.SJF
+ 3.PriorityNonPreemptive
+ 4.Round Robin
+-1.Exit
+ENTER: 
+1
+Enter Number of Processes:
+5
+P(1):Enter Arrival time & Burst time
+0
+21
+P(2):Enter Arrival time & Burst time
+1
+17
+P(3):Enter Arrival time & Burst time
+2
+3
+P(4):Enter Arrival time & Burst time
+3
+4
+P(5):Enter Arrival time & Burst time
+4
+15
+
+
+PRNo	BT	AT	CT	TAT	WT
+============================================================================================
+P1	21	0	21	21	0	0
+P2	17	1	38	37	20	0
+P3	3	2	41	39	36	0
+P4	4	3	45	42	38	0
+P5	15	4	60	56	41	0
+Average Waiting Time27.0
+Average TAT=39.0
+CPU SCHEDULING ALGORITHMS
+
+ 1.FCFS
+ 2.SJF
+ 3.PriorityNonPreemptive
+ 4.Round Robin
+-1.Exit
+ENTER: 
+2
+Enter Number of Processes:
+5
+P(1):Enter Arrival time & Burst time
+0
+21
+P(2):Enter Arrival time & Burst time
+1
+17
+P(3):Enter Arrival time & Burst time
+2
+3
+P(4):Enter Arrival time & Burst time
+3
+4
+P(5):Enter Arrival time & Burst time
+4
+15
+
+
+PRNo	BT	AT	CT	TAT	WT
+============================================================================================
+P3	3	2	5	3	0	0
+P4	4	3	9	6	2	0
+P5	15	4	24	20	5	0
+P2	17	1	40	39	22	0
+P1	21	0	60	60	39	0
+Average Waiting Time13.6
+Average TAT=25.6
+CPU SCHEDULING ALGORITHMS
+
+ 1.FCFS
+ 2.SJF
+ 3.PriorityNonPreemptive
+ 4.Round Robin
+-1.Exit
+ENTER: 
+3
+Enter Number of Processes:
+5
+P(1):Enter  Burst time  & priority
+21
+3
+P(2):Enter  Burst time  & priority
+17
+2
+P(3):Enter  Burst time  & priority
+3
+1
+P(4):Enter  Burst time  & priority
+4
+4
+P(5):Enter  Burst time  & priority
+15
+1
+
+
+PRNo	BT	AT	CT	TAT	WT	PR
+============================================================================================
+P3	3	0	3	3	0	1
+P5	15	0	18	18	3	1
+P2	17	0	35	35	18	2
+P1	21	0	56	56	35	3
+P4	4	0	60	60	56	4
+Average Waiting Time22.4
+Average TAT=34.4
+CPU SCHEDULING ALGORITHMS
+
+ 1.FCFS
+ 2.SJF
+ 3.PriorityNonPreemptive
+ 4.Round Robin
+-1.Exit
+ENTER: 
+4
+Enter Number of Processes:
+5
+P(1):Enter Arrival time & Burst time
+0
+21
+P(2):Enter Arrival time & Burst time
+1
+17
+P(3):Enter Arrival time & Burst time
+2
+3
+P(4):Enter Arrival time & Burst time
+3
+4
+P(5):Enter Arrival time & Burst time
+4
+15
+Enter Quantum Time: 
+3
+
+
+PRNo	BT	AT	CT	TAT	WT	PR
+============================================================================================
+Running Process P1 from0 to 3
+Running Process P2 from3 to 6
+Running Process P3 6 TIME 9
+Completed Process P3
+P3	3	2	9	7	4	0
+Running Process P4 from9 to 12
+Running Process P5 from12 to 15
+Running Process P1 from15 to 18
+Running Process P2 from18 to 21
+Running Process P4 21 TIME 22
+Completed Process P4
+P4	4	3	22	19	15	0
+Running Process P5 from22 to 25
+Running Process P1 from25 to 28
+Running Process P2 from28 to 31
+Running Process P5 from31 to 34
+Running Process P1 from34 to 37
+Running Process P2 from37 to 40
+Running Process P5 from40 to 43
+Running Process P1 from43 to 46
+Running Process P2 from46 to 49
+Running Process P5 49 TIME 52
+Completed Process P5
+P5	15	4	52	48	33	0
+Running Process P1 from52 to 55
+Running Process P2 55 TIME 57
+Completed Process P2
+P2	17	1	57	56	39	0
+Running Process P1 57 TIME 60
+Completed Process P1
+P1	21	0	60	60	39	0
+Average Waiting Time26.0
+Average TAT=38.0
+CPU SCHEDULING ALGORITHMS
+
+ 1.FCFS
+ 2.SJF
+ 3.PriorityNonPreemptive
+ 4.Round Robin
+-1.Exit
+ENTER: 
+-1
