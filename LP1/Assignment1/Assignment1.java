@@ -242,7 +242,7 @@ class RoundRobin {
                         System.out.println("Running Process " + process[i].name + " from" + (time - quantum) + " to " + time);
                     } else {
                         time += process[i].remBT;
-                        System.out.println("Running Process " + process[i].name + " " + (time - process[i].remBT) + " TIME " + time);
+                        System.out.println("Running Process " + process[i].name + " from " + (time - process[i].remBT) + " to " + time);
 
                         process[i].remBT = 0;
                         process[i].CT = time;
