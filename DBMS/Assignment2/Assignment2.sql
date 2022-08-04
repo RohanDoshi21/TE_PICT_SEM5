@@ -75,3 +75,7 @@ select Pname, Plocation, Pcost from Project where year(Pyear)=2007 or year(Pyear
 /* 2nd Highest Salary */ 
 select * from Employee order by salary desc limit 1,1;
 
+/* get experience */
+select *, floor(datediff(sysdate(),joinDate)/365) as 'Experience' from Employee;
+select *, timestampdiff(sql_tsi_year, joinDate, sysdate()) as 'Experience' from Employee;
+
