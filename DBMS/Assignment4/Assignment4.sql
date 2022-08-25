@@ -21,6 +21,7 @@ delimiter @@
 create procedure submit_book(in roll_no int, in BookName varchar(20))
 begin
 	DECLARE days int;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND select 'Not Found' as 'Error';
 	select DATEDIFF(CURRENT_DATE, DateOfIssue) into days from Borrower where Roll_No=roll_no and NameOfBook=BookName;
 	IF days > 15 and days < 30 THEN
 	insert into Fine values(roll_no, CURRENT_DATE, (days-15)*5);
