@@ -15,3 +15,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         data = s.recv(1024)
         data = data.decode()
         print(f"Received {data}")
+    s.close()
