@@ -1,3 +1,11 @@
+# Server Side
+# 5 Steps
+# 1) Socket Creation
+# 2) Bind()
+# 3) Listen()
+# 4) Accept()
+# 5) Close()
+
 from socket import *
 import threading
 import time
@@ -19,6 +27,7 @@ HOST = ''
 PORT = 5555
 ADDR = (HOST, PORT)
 
+# SOCK_STREAM -> TCP     SOCK_DGRAM -> UDP
 serversock = socket(AF_INET, SOCK_STREAM)
 serversock.bind(ADDR)
 serversock.listen(5)

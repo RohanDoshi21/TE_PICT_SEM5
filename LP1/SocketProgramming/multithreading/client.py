@@ -1,3 +1,9 @@
+# Client Side
+# 3 Steps
+# 1) Socket Creation
+# 2) Connect()
+# 3) Close()
+
 from socket import *
 
 HOST = "127.0.0.1"
