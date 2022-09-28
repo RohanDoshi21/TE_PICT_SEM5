@@ -46,7 +46,7 @@ insert into Project values(6, 0, "B", "Pune", 102000, "2005-02-21");
 insert into Project values(5, 3, "Base", "Mumbai", 102000, "2007-02-21");
 
 /* 2 */
-select * from Employee Inner Join Dept on Employee.Dept_id=Dept.Dept_id where dname='CE' or dname='IT' or fname like 'p%' or fname like 'h%';
+select * from Employee Inner Join Dept on Employee.Dept_id=Dept.Dept_id where (dname='CE' or dname='IT') and (fname like 'p%' or fname like 'h%');
 
 /* 3 */
 select COUNT(DISTINCT designation) from Employee;
