@@ -36,7 +36,7 @@ insert into Employee values(9, 3, "Rohan", "Joshi", "ASS. PROF", "50000", "2021-
 insert into Employee values(10, 0, "Rohit", "Doshi", "PROF", "78000", "2019-12-22");
 insert into Employee values(11, 0, "Himanshu", "Doshi", "PROF", "78000", "2019-12-22");
 
-/* Inserting into Project Table */
+/* Inserting into Project Table */insert into Employee values(11, 0, "Himanshu", "Doshi", "PROF", "78000", "2019-12-22");
 insert into Project values(1, 0, "Cloud Accounting", "Pune", 100000, "2022-06-21");
 insert into Project values(2, 2, "Cloud Computing", "Mumbai", 65400, "2020-06-21");
 insert into Project values(3, 1, "Cloud Blockchain", "Nashik", 100000, "2022-06-21");
@@ -47,6 +47,9 @@ insert into Project values(5, 3, "Base", "Mumbai", 102000, "2007-02-21");
 
 /* 2 */
 select * from Employee Inner Join Dept on Employee.Dept_id=Dept.Dept_id where (dname='CE' or dname='IT') and (fname like 'p%' or fname like 'h%');
+
+/* better */
+select * from Employee natural join Dept where (dname in ('CE', 'IT')) and (fname like 'p%' or fname like 'h%');
 
 /* 3 */
 select COUNT(DISTINCT designation) from Employee;
