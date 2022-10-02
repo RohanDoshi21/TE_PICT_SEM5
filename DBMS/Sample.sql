@@ -10,3 +10,8 @@ select * from Project P1 join (select avg(Pcost) as avg from Project ) P2 on P1.
 select * from Dept where Dept_id not in (select distinct Dept_id from Employee);
 
 select * from (select sum(Pcost) as total from Project) P1 join (select avg(Pcost) as avg from Project ) P2 on P1.total > P2.avg;
+
+/* MySQL creates a unique index automatically if a primary or alternate key is
+defined within a CREATE TABLE statement or with an ALTER TABLE statement. */
+CREATE UNIQUE INDEX COL2 USING BTREE ON T1 (COL2);
+CREATE ON INDEX PLAY_TOWN USING HASH PLAYERS (TOWN);
