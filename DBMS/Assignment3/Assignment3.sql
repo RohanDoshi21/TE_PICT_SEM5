@@ -17,7 +17,7 @@ select designation, Dept_id from Employee natural join Project natural join Dept
 select Pname from Project where year(Pyear)=2015;
 
 /* 7 */
-select dname, Count(*) from Dept natural join Employee group by Dept_id;
+select dname, Count(*) from Dept natural join Employee group by Dept_id having count(*) = 5;
 
 /* 8 */
 select year(JoinDate), Count(*) from Employee group by JoinDate;
