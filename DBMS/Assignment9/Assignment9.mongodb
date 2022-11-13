@@ -1,0 +1,114 @@
+create database
+use rohan
+
+current database
+db
+
+drop database
+db.dropDatabase()
+
+create collection
+db.createCollection("rohan")
+
+show collection
+show collections
+
+drop collection
+db.rohan.drop()
+
+insert data
+db.rohan.insertOne({name:"rohan",age:20})
+
+insert multiple data
+db.rohan.insertMany([{name:"rohan",age:20},{name:"rohit",age:15}])
+
+find data
+db.rohan.find()
+
+find data with condition
+db.rohan.find({name:"rohan"})
+
+find data with condition and limit
+db.rohan.find({name:"rohan"}).limit(1)
+
+find data with condition and sort
+db.rohan.find({name:"rohan"}).sort({age:-1})
+
+delete data
+db.rohan.deleteOne({name:"rohan"})
+
+update data
+db.rohan.updateOne({name:"rohan"},{$set:{age:30}})
+
+update multiple data
+db.rohan.updateMany({name:"rohan"},{$set:{age:30}})
+
+find data less than
+db.rohan.find({age:{$lt:20}})
+
+find data greater than
+db.rohan.find({age:{$gt:20}})
+
+find data less than equal to
+db.rohan.find({age:{$lte:20}})
+
+find data greater than equal to
+db.rohan.find({age:{$gte:20}})
+
+find data not equal to
+db.rohan.find({age:{$ne:20}})
+
+find data in
+db.rohan.find({age:{$in:[20,30]}})
+
+find data not in
+db.rohan.find({age:{$nin:[20,30]}})
+
+find data and
+db.rohan.find({$and:[{name:"rohan"},{age:20}]})
+
+find data or
+db.rohan.find({$or:[{name:"rohan"},{age:20}]})
+
+find data not
+db.rohan.find({$not:[{name:"rohan"},{age:20}]})
+
+find data and limit
+db.rohan.find({$and:[{name:"rohan"},{age:20}]}).limit(1)
+
+find data and sort
+db.rohan.find({$and:[{name:"rohan"},{age:20}]}).sort({age:-1})
+
+find data and skip
+db.rohan.find({$and:[{name:"rohan"},{age:20}]}).skip(1)
+
+find data and count
+db.rohan.find({$and:[{name:"rohan"},{age:20}]}).count()
+
+Find nested data
+db.rohan.find({"address.city":"delhi"})
+db.rohan.find({"address.city":"delhi","address.pincode":110001})
+
+Find data with regex
+db.rohan.find({name:/^roh/})
+
+Find data with regex and case insensitive
+db.rohan.find({name:/^roh/i})
+
+Update nested data
+db.rohan.updateOne({name:"rohan"},{$set:{"address.city":"delhi"}})
+
+Update nested data array insert
+db.rohan.updateOne({name:"rohan"},{$push:{"address.city":"delhi"}})
+
+Update nested data array remove
+db.rohan.updateOne({name:"rohan"},{$pull:{"address.city":"delhi"}})
+
+Update nested data array remove all
+db.rohan.updateOne({name:"rohan"},{$pullAll:{"address.city":["delhi","mumbai"]}})
+
+Update nested data array insert multiple
+db.rohan.updateOne({name:"rohan"},{$push:{"address.city":{$each:["delhi","mumbai"]}}})
+
+Update nested data array insert multiple with sort
+db.rohan.updateOne({name:"rohan"},{$push:{"address.city":{$each:["delhi","mumbai"],$sort:-1}}})
