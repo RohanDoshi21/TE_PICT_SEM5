@@ -1,0 +1,83 @@
+show execution stat
+db.students.find().explain("executionStats")
+
+Create Index
+db.students.createIndex({name:1})
+
+show index
+db.students.getIndexes()
+
+drop index
+db.students.dropIndex({name:1})
+
+drop all index
+db.students.dropIndexes()
+
+create compound index
+db.students.createIndex({name:1,age:1})
+
+create unique index
+db.students.createIndex({name:1,age:1},{unique:true})
+
+Find distinct value of a field
+db.students.distinct("name")
+
+Find distinct value of a field with condition
+db.students.distinct("name",{age:{$gt:20}})
+
+
+MongoDb Aggregation
+Aggregation is matching and grouping of data
+
+Operations in Aggregation Pipeline
+$match - filter data
+$group - group data
+$sort - sort data
+
+[
+  {
+    _id: 4,
+    name: 'Zachary Langlais',
+    scores: [
+      { score: 78.68385091304332, type: 'exam' },
+      { score: 90.2963101368042, type: 'quiz' },
+      { score: 34.41620148042529, type: 'homework' }
+    ]
+  }
+]
+
+find the total marks of each student
+db.students.aggregate([ {'$match' : { _id : {$in : [7, 8, 9, 10, 11, 12, 13, 14] }} } ,{"$group" : { _id : '$_id', name : {"$first" : "$name"}, sum : { $first : { $sum : ["$scores.score"] } }}}, {$sort : {sum : -1}}])
+[
+  { _id: 13, name: 'Jessika Dagenais', sum: 275.94947751518237 },
+  { _id: 11, name: 'Marcus Blohm', sum: 248.5091538691126 },
+  { _id: 7, name: 'Salena Olmos', sum: 229.3959334774732 },
+  { _id: 12, name: 'Quincy Danaher', sum: 220.3184379933348 },
+  { _id: 9, name: 'Sanda Ryba', sum: 220.08328118626565 },
+  { _id: 10, name: 'Denisha Cast', sum: 199.8843572885121 },
+  { _id: 14, name: 'Alix Sherrill', sum: 118.48870352377075 },
+  { _id: 8, name: 'Daphne Zheng', sum: 112.71677331754347 }
+]
+
+
+Unwinding
+db.students.aggregate([ {'$match' : { _id : {$in : [7] }} },{$unwind : '$scores' }, {$sort : {sum : -1}}])
+[
+  {
+    _id: 7,
+    name: 'Salena Olmos',
+    scores: { score: 90.37826509157176, type: 'exam' }
+  },
+  {
+    _id: 7,
+    name: 'Salena Olmos',
+    scores: { score: 42.48780666956811, type: 'quiz' }
+  },
+  {
+    _id: 7,
+    name: 'Salena Olmos',
+    scores: { score: 96.52986171633331, type: 'homework' }
+  }
+]
+
+
