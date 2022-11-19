@@ -40,11 +40,16 @@ class Pass1:
     def __init__(self) -> None:
         self.symtab = []
         self.lc = 0
+        self.literaltab = []
+        self.litIndex = 0
+        self.poolTab = [0]
+        self.poolIndex = 0
 
     def updateSymtab(self, pair):
         for i in self.symtab:
             if i[0] == pair[0]:
                 i[1] = pair[1]
+                break
         else:
             self.symtab.append(pair)
 
@@ -82,6 +87,22 @@ class Pass1:
                     constant = word[2][1:-1]
                     print(f"(DL, 01)\t(C,{constant})")
 
+                if word[1] == 'LTORG':
+                    for i in range(self.poolIndex, self.litIndex):
+                        self.lc += 1
+                        # Update literaltab
+                        self.literaltab[i][1] = self.lc
+
+                        # Get value of the literals
+                        value = int(self.literaltab[i][0].replace(
+                            '=', '').replace("'", ""))
+
+                        print(f"(DL,01)\t(C, {value})")
+
+                    # Update Pool
+                    self.poolTab.append(self.litIndex)
+                    self.poolIndex = self.litIndex
+
                 if word[1] == 'DS':
                     constant = int(word[2])
                     self.lc += constant
@@ -90,7 +111,7 @@ class Pass1:
                 if word[1] == 'ORIGIN':
                     # TODO: CONSIDER LABELS IN ORIGIN
                     # Only considering numbers
-                    self.lc += int(word[2])
+                    self.lc = int(word[2])
                     print(f"(AD,05)\t(C,{self.lc})")
 
                 if word[1] == 'EQU':
@@ -108,8 +129,13 @@ class Pass1:
                             code += REG.get(word[j]) + "\t"
                         elif CC.get(word[j]) != None:
                             code += CC.get(word[j]) + "\t"
+                        elif word[j].find('=') != -1:
+                            self.literaltab.append([word[j], -1])
+                            word[j] = word[j].replace('=', '').replace("'", "")
+                            self.litIndex += 1
+                            code += f"(L, {self.litIndex})"
+                            pass
                         else:
-                            # TODO: Literals
                             if self.getSymtabLC(word[j]) == -1:
                                 pair = [word[j], -1]
                                 self.updateSymtab(pair)
@@ -123,10 +149,32 @@ class Pass1:
                     print(code)
 
                 if word[1] == 'END':
-                    # TODO: Process literals
+                    # TODO: Process literal
+                    for i in range(self.poolIndex, self.litIndex):
+                        self.lc += 1
+                        # Update literaltab
+                        self.literaltab[i][1] = self.lc
+
+                        # Get value of the literals
+                        value = int(self.literaltab[i][0].replace(
+                            '=', '').replace("'", ""))
+
+                        print(f"(DL,01)\t(C, {value})")
+
+                    # Update Pool
+                    self.poolTab.append(self.litIndex)
+                    self.poolIndex = self.litIndex
+
                     print('(AD, 02)')
 
+            print("Symtab: ")
             print(self.symtab)
+
+            print("Littab: ")
+            print(self.literaltab)
+
+            print("Pooltab :")
+            print(self.poolTab)
 
 
 test = Pass1()
