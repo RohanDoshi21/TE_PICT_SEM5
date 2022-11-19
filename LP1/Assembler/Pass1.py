@@ -68,7 +68,7 @@ class Pass1:
             return -1
 
     def process(self):
-        with open("input.asm/home/rohandoshi21/Development/LP1/Assembler/Simple.txt", "r") as file:
+        with open("/home/rohandoshi21/Development/LP1/Assembler/SanikaCase.txt", "r") as file:
             data = file.readlines()
             for line in data:
                 word = line.replace('\n', '').split('\t')
@@ -112,13 +112,15 @@ class Pass1:
                     # TODO: CONSIDER LABELS IN ORIGIN
                     # Only considering numbers
                     self.lc = int(word[2])
-                    print(f"(AD,05)\t(C,{self.lc})")
+                    print(f"(AD,03)\t(C,{self.lc})")
 
                 if word[1] == 'EQU':
                     # TODO: Modify according to sign
                     Equation = word[2].split('+')
                     index = self.getSymtabLC(Equation[0]) + int(Equation[1])
                     self.updateSymtab([word[0], index])
+                    index_print = self.getSymtabPos(Equation[0])
+                    print(f"(AD,04) (S, {index_print})+{Equation[1]}")
 
                 if OPTAB.get(word[1]) != None:
                     code = OPTAB.get(word[1]) + "\t"
