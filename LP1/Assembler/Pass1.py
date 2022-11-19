@@ -68,7 +68,7 @@ class Pass1:
             return -1
 
     def process(self):
-        with open("/home/rohandoshi21/Development/LP1/Assembler/Simple.txt", "r") as file:
+        with open("input.asm/home/rohandoshi21/Development/LP1/Assembler/Simple.txt", "r") as file:
             data = file.readlines()
             for line in data:
                 word = line.replace('\n', '').split('\t')
