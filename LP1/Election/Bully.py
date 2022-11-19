@@ -1,4 +1,4 @@
-class BullyElection():
+class BullyElection:
     def __init__(self, total_process):
         self.total = total_process
         self.state = [True for x in range(self.total)]
