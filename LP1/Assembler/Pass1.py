@@ -63,7 +63,7 @@ class Pass1:
             return -1
 
     def process(self):
-        with open("Simple.txt", "r") as file:
+        with open("/home/rohandoshi21/Development/LP1/Assembler/Simple.txt", "r") as file:
             data = file.readlines()
             for line in data:
                 word = line.replace('\n', '').split('\t')
@@ -87,9 +87,20 @@ class Pass1:
                     self.lc += constant
                     print(f"(DL, 02)\t(C,{constant})")
 
+                if word[1] == 'ORIGIN':
+                    # TODO: CONSIDER LABELS IN ORIGIN
+                    # Only considering numbers
+                    self.lc += int(word[2])
+                    print(f"(AD,05)\t(C,{self.lc})")
+
+                if word[1] == 'EQU':
+                    # TODO: Modify according to sign
+                    Equation = word[2].split('+')
+                    index = self.getSymtabLC(Equation[0]) + int(Equation[1])
+                    self.updateSymtab([word[0], index])
+
                 if OPTAB.get(word[1]) != None:
                     code = OPTAB.get(word[1]) + "\t"
-
 
                     j = 2
                     while j < len(word):
@@ -108,6 +119,7 @@ class Pass1:
 
                         j += 1
 
+                    self.lc += 1
                     print(code)
 
                 if word[1] == 'END':
