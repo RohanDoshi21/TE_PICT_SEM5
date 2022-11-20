@@ -5,33 +5,26 @@ class Pass2:
         pass
 
     def readFiles(self):
-        # Paste the output here
-        self.symtab = [
-            ['A', 100],
-            ['L1', 103],
-            ['B', 118],
-            ['C', 119],
-            ['D', 101],
-            ['L2', 106]
-        ]
-        self.littab = [
-            ["='34'", 109],
-            ["='14'", 110],
-            ["='143'", 114],
-            ["='134'", 115],
-            ["='143'", 120],
-            ["='134'", 121]
-        ]
+        with open("/home/rohandoshi21/Development/LP1/Assembler/pass2/Symtab.txt", "r") as File:
+            data = File.readlines()
+            for line in data:
+                word = line.split()
+                self.symtab.append(int(word[2][:-1]))
+        with open("/home/rohandoshi21/Development/LP1/Assembler/pass2/Littab.txt", "r") as File:
+            data = File.readlines()
+            for line in data:
+                word = line.split()
+                self.littab.append(int(word[2][:-1]))
 
     def LiteralORSymbol(self, word):
         index = int(word[3:-1])
         if word.find('L') != -1:
-            return (self.littab[index-1][1])
+            return (self.littab[index-1])
         else:
-            return (self.symtab[index][1])
+            return (self.symtab[index])
 
     def process(self):
-        with open("IC.txt", "r") as file:
+        with open("/home/rohandoshi21/Development/LP1/Assembler/pass2/input.txt", "r") as file:
             data = file.readlines()
             for line in data:
                 word = line.replace("\n", "").strip().split()
