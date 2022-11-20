@@ -13,7 +13,7 @@ def func(clientsock, addr):
             break
 
 HOST = 'localhost'
-PORT = 5556
+PORT = 5555
 
 sock = socket(AF_INET, SOCK_STREAM)
 sock.bind((HOST, PORT))
