@@ -68,7 +68,7 @@ class Pass1:
             return -1
 
     def process(self):
-        with open("/home/rohandoshi21/Development/LP1/Assembler/SanikaCase.txt", "r") as file:
+        with open("/home/rohandoshi21/Development/LP1/Assembler/Simple.txt", "r") as file:
             data = file.readlines()
             for line in data:
                 word = line.replace('\n', '').split('\t')
@@ -85,19 +85,19 @@ class Pass1:
                     self.lc += 1
                     # Change -1 according to syntax of input '19' -> -1   '19  -> 0
                     constant = word[2][1:-1]
-                    print(f"(DL, 01)\t(C,{constant})")
+                    print(f"(DL,01)\t(C,{constant})")
 
                 if word[1] == 'LTORG':
                     for i in range(self.poolIndex, self.litIndex):
-                        self.lc += 1
                         # Update literaltab
                         self.literaltab[i][1] = self.lc
+                        self.lc += 1
 
                         # Get value of the literals
                         value = int(self.literaltab[i][0].replace(
                             '=', '').replace("'", ""))
 
-                        print(f"(DL,01)\t(C, {value})")
+                        print(f"(DL,01)\t(C,{value})")
 
                     # Update Pool
                     self.poolTab.append(self.litIndex)
@@ -106,7 +106,7 @@ class Pass1:
                 if word[1] == 'DS':
                     constant = int(word[2])
                     self.lc += constant
-                    print(f"(DL, 02)\t(C,{constant})")
+                    print(f"(DL,02)\t(C,{constant})")
 
                 if word[1] == 'ORIGIN':
                     # TODO: CONSIDER LABELS IN ORIGIN
@@ -120,7 +120,7 @@ class Pass1:
                     index = self.getSymtabLC(Equation[0]) + int(Equation[1])
                     self.updateSymtab([word[0], index])
                     index_print = self.getSymtabPos(Equation[0])
-                    print(f"(AD,04) (S, {index_print})+{Equation[1]}")
+                    print(f"(AD,04) (S,{index_print})+{Equation[1]}")
 
                 if OPTAB.get(word[1]) != None:
                     code = OPTAB.get(word[1]) + "\t"
@@ -135,7 +135,7 @@ class Pass1:
                             self.literaltab.append([word[j], -1])
                             word[j] = word[j].replace('=', '').replace("'", "")
                             self.litIndex += 1
-                            code += f"(L, {self.litIndex})"
+                            code += f"(L,{self.litIndex})"
                             pass
                         else:
                             if self.getSymtabLC(word[j]) == -1:
@@ -143,7 +143,7 @@ class Pass1:
                                 self.updateSymtab(pair)
 
                             const = self.getSymtabPos(word[j])
-                            code += f"(S, {const})"
+                            code += f"(S,{const})"
 
                         j += 1
 
@@ -153,15 +153,15 @@ class Pass1:
                 if word[1] == 'END':
                     # TODO: Process literal
                     for i in range(self.poolIndex, self.litIndex):
-                        self.lc += 1
                         # Update literaltab
                         self.literaltab[i][1] = self.lc
+                        self.lc += 1
 
                         # Get value of the literals
                         value = int(self.literaltab[i][0].replace(
                             '=', '').replace("'", ""))
 
-                        print(f"(DL,01)\t(C, {value})")
+                        print(f"(DL,01)\t(C,{value})")
 
                     # Update Pool
                     self.poolTab.append(self.litIndex)
@@ -177,6 +177,32 @@ class Pass1:
 
             print("Pooltab :")
             print(self.poolTab)
+
+            file.close()
+
+        with open("/home/rohandoshi21/Development/LP1/Assembler/Symtab.txt", "w") as file:
+            str1 = ""
+            for x, val in enumerate(self.symtab):
+                str1 = str(x)+"\t"+str(val) + "\n"
+                file.write(str1)
+
+            file.close()
+
+        with open("/home/rohandoshi21/Development/LP1/Assembler/Littab.txt", "w") as file:
+            str1 = ""
+            for x, val in enumerate(self.literaltab):
+                str1 = str(x)+"\t"+str(val) + "\n"
+                file.write(str1)
+
+            file.close()
+
+        with open("/home/rohandoshi21/Development/LP1/Assembler/Pooltab.txt", "w") as file:
+            str1 = ""
+            for x, val in enumerate(self.poolTab):
+                str1 = str(x)+"\t"+str(val) + "\n"
+                file.write(str1)
+
+            file.close()
 
 
 test = Pass1()
