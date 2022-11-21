@@ -23,6 +23,10 @@ class BullyElection:
             print(f"Election message sent p{pos} to p{i+1}")
 
         for i in range(pos, self.total):
+            if self.state[i] == True:
+                print(f"p{i+1} responds OK to p{pos}")
+
+        for i in range(pos, self.total):
             if (self.state[i] == True):
                 self.Election(i+1)
                 return
@@ -38,4 +42,3 @@ algo.down(2)
 # algo.down(4)
 # algo.down(3)
 algo.Election(1)
-
